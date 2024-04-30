@@ -58,7 +58,7 @@ const loadNotes = ()=> {
     const dataBuffer = fs.readFileSync("notes.json"); //dosyadan okuma işlemi 
     const dataJSON = dataBuffer.toString(); //okudugu veriyi json formatına çeviriyor 
     //parse the string and return 
-    return JSON.parse(dataJSON); //JSon formatına donusur 
+    return JSON.parse(dataJSON); //JSon formatı js nesnesine donusur 
   } catch (e) { 
     return []; 
   } 
