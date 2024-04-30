@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-
+const hbs = require('hbs');
+const { title } = require('process');
 const app = express();
 app.set('view engine','hbs');
 
@@ -8,13 +9,16 @@ const publicDirectoryPath = path.join(__dirname,'../public'); // Statik web sayf
 app.use(express.static(publicDirectoryPath)); // statik dosyalar 
 //app.com: app.com,app.com/help, app.com/about
 
-const viewsPath = path.join(__dirname,'../public/views');
+const viewsPath = path.join(__dirname,'../public/templates/views');
 app.set('views',viewsPath);
+
+const partialPath = path.join(__dirname,"../public/templates/partials");
+hbs.registerPartials(partialPath);
 
 app.get('/',(req,res)=>{
     res.render('index.hbs',{
         title: "Dinamik Web Sayfasi",
-        name:"TEST"
+        name:"Kadir"
     })
 });
 
@@ -36,25 +40,43 @@ app.get('/weather',(req,res)=>{
         location: "Bursa"
     });
 });
+//Help error router
+app.get("/help/*",(req,res)=>{
+    res.render('404.hbs',{
+        title:"404 Yardim Sayfasi",
+        name:"Kadir Capkin",
+        errorMessage:"Aradiginiz Yardim sayfa bulunamadi."
+    });
+})
 
 app.get('/help',(req,res)=>{/*
     res.send([{name:"Kadir"},
                 {name:"Kdr"}]); //Json formatında yolladik*/
     res.render('help.hbs',{
         title:"Yardim Sayfasi Dinamik Baslik",
-        name:"Yardim sayfasi dinamik icerik"
+        name:"Yardim sayfasi Kadir Capkin",
+        helpText:"HelpText Test Dinamik Yazisidir."
     })
 });
 
 app.get('/about',(req,res)=>{
     res.render('about.hbs',{
         title:"Dinamik About Sayfasi",
-        name:"About sayfasi Dinamik Test"
+        name:"About sayfasi Kadir Capkin"
     });
 });
 
 app.get('test',(req,res)=>{
     res.sendFile(path.join(__dirname,'../public','index.html'));
+})
+
+// Error router
+app.get("*",(req,res)=>{
+    res.render('404.hbs',{
+        title:"404 Sayfasi",
+        name:"Kadir Capkin",
+        errorMessage:"Aradiginiz sayfa bulunamadi."
+    });
 })
 
 app.listen(3000,()=>{
