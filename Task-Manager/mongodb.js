@@ -2,7 +2,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const password = process.env.MONGODB_PASSWORD;  
-const uri = `mongodb+srv://kadircapkin:${password}@btu.cjwmhfy.mongodb.net/?retryWrites=true&w=majority&appName=btu`
+const uri = `mongodb+srv://kadircapkinn:${password}@cluster0.pguczr6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
 const databaseName = "task-manager";
 
